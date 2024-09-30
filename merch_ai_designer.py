@@ -20,7 +20,7 @@ submit_button = st.sidebar.button("Generate Design")
         # Create the image using OpenAI's image generation API, specifying the model
 response = client.images.generate(
                model="dall-e-3",
-               prompt = "For this specific merch item: {merch_type.lower()}, please create a design based on the following description: {description_input}."
+               prompt = "For this specific merch item: {merch_type.lower()}, please create a design based on the following description: {description_input}.",
                size="1024x1024",
                quality="standard",
                n=1,
