@@ -6,8 +6,6 @@ import os
 api_key = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=api_key)
 
-# Set the OpenAI API key
-openai.api_key = api_key
 
 st.title("Merch AI Designer: Revolutionizing Merchandise Creation")
 st.sidebar.title("Describe your Merchandise")
