@@ -36,6 +36,8 @@ def generate_merch_design(description_input, merch_type):
         # Create an Image instance with the URL
         image = Image(url=image_url)
 
+except Exception as e:
+        return f"An error occurred: {e}"  # Handle errors
 
 # Generate the design when the button is pressed
 if submit_button:
