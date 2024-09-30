@@ -5,6 +5,9 @@ import os
 # Retrieve API key from environment variables
 api_key = os.getenv("OPENAI_API_KEY")
 
+# Set the OpenAI API key
+openai.api_key = api_key
+
 st.title("Merch AI Designer: Revolutionizing Merchandise Creation")
 st.sidebar.title("Describe your Merchandise")
 
@@ -16,10 +19,11 @@ submit_button = st.sidebar.button("Generate Design")
 def generate_merch_design(description_input, merch_type):
     try:
         # Create a prompt for generating the merchandise with the design
-        prompt = f"For this specific merch item: {merch_type.lower()} please create a design based on the following description: {description_input}."
+        prompt = f"For this specific merch item: {merch_type.lower()}, please create a design based on the following description: {description_input}."
         
-        # Create the image using OpenAI's image generation API
+        # Create the image using OpenAI's image generation API, specifying the model
         response = openai.Image.create(
+            model="dall-e",  # Replace "dall-e" with the latest model name if needed
             prompt=prompt,
             n=1,  # Number of images to generate
             size="1024x1024"
