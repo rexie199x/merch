@@ -1,6 +1,7 @@
 import openai
 import streamlit as st
 from getpass import getpass
+from IPython.display import Image, display
 
 api_key = getpass("Enter your OpenAI API Key: ")
 openai.api_key = api_key
@@ -19,7 +20,7 @@ if submit_button and image_description:
         # Create the image using OpenAI's image generation API
         response = openai.Image.create(
             prompt=image_description,
-            n=1,  # Number of images to generate
+            n=1,  
             size="1024x1024"
         )
         image_url = response['data'][0]['url'] 
