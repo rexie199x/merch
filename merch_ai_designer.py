@@ -3,7 +3,7 @@ import streamlit as st
 import os
 
 # Use os.getenv to access the API key from Streamlit secrets
-api_key = os.getenv("OPENAI_API_KEY", None)  # Second argument (None) is the fallback if the key isn't found
+api_key = os.getenv(OPENAI_API_KEY, None)  # Second argument (None) is the fallback if the key isn't found
 openai.api_key = api_key
 
 st.title("Merch AI Designer: Revolutionizing Merchandise Creation")
