@@ -23,15 +23,15 @@ def generate_merch_design(description_input, merch_type):
         prompt = f"For this specific merch item: {merch_type.lower()}, please create a design based on the following description: {description_input}."
         
         # Create the image using OpenAI's image generation API, specifying the model
-       response = client.images.generate(
-           model="dall-e-3",
-           prompt=image_description,
-           size="1024x1024",
-           quality="standard",
-           n=1,
-       )
-    image_url = response.data[0].url
-    image_url
+           response = client.images.generate(
+               model="dall-e-3",
+               prompt=image_description,
+               size="1024x1024",
+               quality="standard",
+               n=1,
+           )
+            image_url = response.data[0].url
+            image_url
     from IPython.display import Image, display
 
     # Create an Image instance with the URL
