@@ -32,10 +32,9 @@ def generate_merch_design(description_input, merch_type):
            )
         image_url = response.data[0].url
         image_url
-    from IPython.display import Image, display
-
-    # Create an Image instance with the URL
-    image = Image(url=image_url)
+        from IPython.display import Image, display
+        # Create an Image instance with the URL
+        image = Image(url=image_url)
 
 # Display the image
 display(image)
