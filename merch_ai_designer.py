@@ -15,8 +15,8 @@ submit_button = st.sidebar.button("Generate Design")
 # Function to generate merch design
 def generate_merch_design(description_input, merch_type):
     try:
-        # Create a prompt that includes the merchandise type
-        prompt = f"A {merch_type.lower()} design featuring: {description_input}"
+        # Create a prompt that includes the merchandise type clearly
+        prompt = f"A clean and professional design for a {merch_type.lower()} featuring: {description_input}."
         
         # Create the image using OpenAI's image generation API
         response = openai.Image.create(
