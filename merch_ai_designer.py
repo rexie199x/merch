@@ -2,14 +2,12 @@ import openai
 import streamlit as st
 from getpass import getpass
 
-# Securely input the OpenAI API key
 api_key = getpass("Enter your OpenAI API Key: ")
-openai.api_key = api_key  # Correct way to set the API key
+openai.api_key = api_key
 
 st.title("Merch AI Designer: Revolutionizing Merchandise Creation")
 st.sidebar.title("Describe your Merchandise")
 
-# Sidebar inputs
 image_description = st.sidebar.text_input("Describe the image you'd like to generate:")
 merch_type = st.sidebar.selectbox("Choose your merchandise type:", ["T-Shirt", "Mug", "Poster", "Tote Bag", "Sticker"])
 
@@ -24,7 +22,7 @@ if submit_button and image_description:
             n=1,  # Number of images to generate
             size="1024x1024"
         )
-        image_url = response['data'][0]['url']  # Extract the image URL from the response
+        image_url = response['data'][0]['url'] 
 
         # Display the image and the merchandise type
         st.image(image_url, caption=f'Your Custom {merch_type}')
