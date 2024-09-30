@@ -13,11 +13,14 @@ merch_type = st.sidebar.selectbox("Choose your merchandise type:", ["T-Shirt", "
 submit_button = st.sidebar.button("Generate Design")
 
 # Function to generate merch design
-def generate_merch_design(description_input):
+def generate_merch_design(description_input, merch_type):
     try:
+        # Create a prompt that includes the merchandise type
+        prompt = f"A {merch_type.lower()} design featuring: {description_input}"
+        
         # Create the image using OpenAI's image generation API
         response = openai.Image.create(
-            prompt=description_input,
+            prompt=prompt,
             n=1,  # Number of images to generate
             size="1024x1024"
         )
@@ -32,7 +35,7 @@ def generate_merch_design(description_input):
 if submit_button:
     if image_description:
         # Call the function to generate the design
-        generated_image = generate_merch_design(image_description)
+        generated_image = generate_merch_design(image_description, merch_type)
 
         if "An error occurred" in generated_image:
             st.error(generated_image)  # Display error if there is one
