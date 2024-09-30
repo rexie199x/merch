@@ -36,8 +36,6 @@ def generate_merch_design(description_input, merch_type):
         # Create an Image instance with the URL
         image = Image(url=image_url)
 
-# Display the image
-display(image)
 
 # Generate the design when the button is pressed
 if submit_button:
