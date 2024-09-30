@@ -25,8 +25,8 @@ response = client.images.generate(
                quality="standard",
                n=1,
            )
-        image_url = response.data[0].url
-        image_url
+image_url = response.data[0].url
+image_url
 from IPython.display import Image, display
 # Create an Image instance with the URL
 image = Image(url=image_url)
