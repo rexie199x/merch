@@ -29,7 +29,7 @@ def generate_merch_design(description_input, merch_type):
           size="1024x1024",
           quality="standard",
           n=1,
-           
+       )
     image_url
     from IPython.display import Image, display
 
