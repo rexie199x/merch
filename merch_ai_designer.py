@@ -3,7 +3,7 @@ import streamlit as st
 from getpass import getpass
 from IPython.display import Image, display
 
-api_key = getpass("Enter your OpenAI API Key: ")
+api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
 
 st.title("Merch AI Designer: Revolutionizing Merchandise Creation")
