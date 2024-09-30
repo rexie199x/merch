@@ -28,6 +28,8 @@ image_url
 from IPython.display import Image, display
 # Create an Image instance with the URL
 image = Image(url=image_url)
+# Display the image
+display(image)
 
 # Generate the design when the button is pressed
 if submit_button:
