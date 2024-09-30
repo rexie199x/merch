@@ -1,6 +1,9 @@
 import openai
 import streamlit as st
 import os
+from PIL import Image
+import requests
+from io import BytesIO
 
 # Retrieve API key from environment variables
 api_key = os.getenv("OPENAI_API_KEY")
@@ -13,10 +16,10 @@ merch_type = st.sidebar.selectbox("Choose your merchandise type:", ["T-Shirt", "
 submit_button = st.sidebar.button("Generate Design")
 
 # Function to generate merch design
-def generate_merch_design(description_input, merch_type):
+def generate_merch_design(description_input):
     try:
-        # Create a clear prompt for generating the design
-        prompt = f"For this specific merch item: {merch_type}, please create a design based on the following description: {description_input}."
+        # Create a prompt for generating the design
+        prompt = f"For this specific merch item, please create a design based on the following description: {description_input}."
         
         # Create the image using OpenAI's image generation API
         response = openai.Image.create(
@@ -31,16 +34,54 @@ def generate_merch_design(description_input, merch_type):
         # Return the error message if something goes wrong
         return f"An error occurred: {e}"
 
+# Function to overlay design onto merchandise template
+def overlay_design_on_merch(design_url, merch_type):
+    # Load the merchandise template based on the selected merch_type
+    if merch_type == "T-Shirt":
+        template_path = "templates/tshirt_template.png"  # Path to T-shirt template
+    elif merch_type == "Mug":
+        template_path = "templates/mug_template.png"  # Path to Mug template
+    elif merch_type == "Poster":
+        template_path = "templates/poster_template.png"  # Path to Poster template
+    elif merch_type == "Tote Bag":
+        template_path = "templates/tote_template.png"  # Path to Tote Bag template
+    elif merch_type == "Sticker":
+        template_path = "templates/sticker_template.png"  # Path to Sticker template
+    else:
+        return "Invalid merchandise type."
+
+    # Open the merchandise template
+    merch_template = Image.open(template_path).convert("RGBA")
+    
+    # Download the generated design
+    response = requests.get(design_url)
+    design = Image.open(BytesIO(response.content)).convert("RGBA")
+
+    # Resize the design to fit the merchandise (you may need to adjust these sizes)
+    design = design.resize((300, 300))  # Adjust size based on template
+
+    # Calculate the position to center the design on the template
+    position = ((merch_template.width - design.width) // 2, (merch_template.height - design.height) // 2)
+
+    # Overlay the design on the merchandise template
+    merch_template.paste(design, position, design)  # Use design as mask for transparency
+
+    # Return the final image with the design
+    return merch_template
+
 # Generate the design when the button is pressed
 if submit_button:
     if image_description:
         # Call the function to generate the design
-        generated_image = generate_merch_design(image_description, merch_type)
+        generated_image_url = generate_merch_design(image_description)
 
-        if "An error occurred" in generated_image:
-            st.error(generated_image)  # Display error if there is one
+        if "An error occurred" in generated_image_url:
+            st.error(generated_image_url)  # Display error if there is one
         else:
-            # Display the image and the merchandise type
-            st.image(generated_image, caption=f'Your Custom {merch_type}')
+            # Overlay the design on the selected merchandise template
+            final_image = overlay_design_on_merch(generated_image_url, merch_type)
+
+            # Display the final image with the design on the selected merchandise
+            st.image(final_image, caption=f'Your Custom {merch_type}')
     else:
         st.write("Please enter an image description.")
