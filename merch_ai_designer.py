@@ -27,9 +27,9 @@ response = client.images.generate(
            )
         image_url = response.data[0].url
         image_url
-        from IPython.display import Image, display
-        # Create an Image instance with the URL
-        image = Image(url=image_url)
+from IPython.display import Image, display
+# Create an Image instance with the URL
+image = Image(url=image_url)
 
 # Generate the design when the button is pressed
 if submit_button:
